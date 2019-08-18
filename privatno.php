@@ -5,5 +5,4 @@ if(!isset($_SESSION["autoriziran"])){
     exit;
 }
 ?>
-<a href="baza.php">Baza</a>
 <a href="odjava.php">Odjava</a>
