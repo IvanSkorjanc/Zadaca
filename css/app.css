@@ -23,3 +23,12 @@
     margin: 20px 0 20px 0;
     padding: 10px; 
 }
+
+body
+{
+    font-family: lucida grande, tahoma, verdana, arial, sans-serif;
+    background-image: url("https://i.imgur.com/sHtdoBU.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
