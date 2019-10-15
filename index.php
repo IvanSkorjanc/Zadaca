@@ -1,42 +1,25 @@
-<?php include_once "konfiguracija.php" ?>
-
-<!DOCTYPE HTML>
-<html>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Početna stranica</title>
-<link rel="stylesheet" href="css/foundation.css">
-<link rel="stylesheet" href="css/app.css">
-
-<a href="kontakt.php">Kontakt</a>
-
-
-<div id = "index">
-<div class="grid-x grid-padding-x">
-<div class="large-8 medium-6 cell">
-<form action="autoriziraj.php" method="post">
-<label>E-mail
-    <input type="email" name="email"  />
-</label>
-
-<label>Lozinka
-    <input type="password" name="lozinka" />
-    
-</label>
-    
-</div>
-
-<br>
-
-<input type="submit" value="Autoriziraj">
-
-</form>
-
-<a href="https://github.com/IvanSkorjanc/Zadaca">Git hub</a>
-
-</html>
-
 <?php
-if(isset($_GET["g"])){
-    echo $poruke[$_GET["g"]];
-}
+
+session_start();
+
+define("BP",__DIR__ . DIRECTORY_SEPARATOR );
+
+
+error_reporting(E_ALL);
+ini_set("display_errors",1);
+
+$t = implode(PATH_SEPARATOR,
+            [
+                BP . "app" . DIRECTORY_SEPARATOR . "model",
+                BP . "app" . DIRECTORY_SEPARATOR . "controller"
+            ]
+            );
+
+
+set_include_path($t);
+spl_autoload_register(function($klasa)
+{
+    $putanja = strtr($klasa,"\\",DIRECTORY_SEPARATOR) . ".php";
+    return include $putanja;
+});
+App::start();
