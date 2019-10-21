@@ -19,6 +19,22 @@ class Konfiguracija
         return $izraz->fetchAll();
     }
 
+
+    public static function getKonfiguracijeNaKomponenti($komponenta)
+    {
+       
+        $veza = DB::getInstance();
+        $izraz = $veza->prepare("
+        
+        select a.sifra, a.naziv, a.opis, a.cijena 
+        from konfiguracija a inner join dio b on 
+        a.sifra=b.komponenta where b.konfiguracija=:konfiguracija
+
+        ");
+        $izraz->execute(["komponenta"=>$komponenta]);
+        return $izraz->fetchAll();
+    }
+
     public static function read($id)
     {
         $veza = DB::getInstance();
@@ -42,11 +58,8 @@ class Konfiguracija
         (null,:naziv,:opis,:cijena)
         
         ");
-        $izraz->execute([
-            'naziv'=>$_POST['naziv'],
-            'opis'=>$_POST['opis'],
-            'cijena'=>$_POST['cijena']
-        ]);
+        $izraz->execute($_POST);
+        return $veza->lastInsertId();
     }
 
     public static function promjeni($id)
@@ -58,6 +71,7 @@ class Konfiguracija
             naziv=:naziv,
             opis =:opis,
             cijena=:cijena
+            where sifra=:sifra
         
         ");
         $_POST['sifra']=$id;
@@ -78,15 +92,6 @@ class Konfiguracija
 
 
 
-    public static function isDeletable($id)
-    {
-        $veza = DB::getInstance();
-        $izraz = $veza->prepare("
-        
-        select count(komponenta) from dio where konfiguracija=:konfiguracija
-        
-        ");
-        $izraz->execute(['konfiguracija'=>$id]);
-        $ukupno = $izraz->fetchColumn();
-        return $ukupno==0;
-    }
+
+
+}

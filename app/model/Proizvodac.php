@@ -9,9 +9,7 @@ class Proizvodac
         $veza = DB::getInstance();
         $izraz = $veza->prepare("
         
-        select a.sifra, a.zemlja, 
-        b.naziv from proizvodac a 
-        inner join komponenta b on a.naziv=b.sifra
+        select * from proizvodac
         ");
         $izraz->execute();
         return $izraz->fetchAll();
@@ -40,10 +38,8 @@ class Proizvodac
         (null,:naziv,:zemlja)
         
         ");
-        $izraz->execute([
-            'naziv'=>$_POST['naziv'],
-            'zemlja'=>$_POST['zemlja']
-        ]);
+        $izraz->execute($_POST);
+        return $veza->lastInsertId();
 
     }
 
@@ -56,11 +52,14 @@ class Proizvodac
         set 
             naziv=:naziv,
             zemlja =:zemlja
+            where sifra=:sifra
         
         ");
         $_POST['sifra']=$id;
         $izraz->execute($_POST);
     }
+
+
 
 
     public static function brisi($id)
@@ -77,19 +76,7 @@ class Proizvodac
 
 
 
-    public static function isDeletable($id)
-    {
-        $veza = DB::getInstance();
-        $izraz = $veza->prepare("
-        
-        select count(sifra) from komponenta where proizvodac=:proizvodac
-        
-        ");
-        $izraz->execute(['proizvodac'=>$id]);
-        $ukupno = $izraz->fetchColumn();
-        return $ukupno==0;
-
-    }
+    
 
     
 }

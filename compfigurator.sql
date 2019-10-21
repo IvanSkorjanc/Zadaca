@@ -1,7 +1,11 @@
 
 /*
-c:\xampp\mysql\bin\mysql -uedunova -pedunova --default_character_set=utf8 < "C:\pokušaj završnog\Compfigurator\compfigurator.sql"
+d:\xampp\mysql\bin\mysql -uedunova -pedunova --default_character_set=utf8 < "D:\PP19Workspace\polaznik.21.edunova.hr\compfigurator.sql"
 */
+
+drop database if exists compfigurator;
+create database compfigurator default character set utf8 collate=utf8_croatian_ci  ;
+use compfigurator;
 
 
 # za hosting

@@ -1,13 +1,14 @@
 <a href="<?php echo App::config("url") ?>konfiguracija/pripremaNovi" 
 class=" button expanded">
 <i class="fas fa-plus-square"></i>
-Dodaj novog polaznika</a>
+Dodaj novu konfiguraciju</a>
 
 <div class="grid-container">
+<div class="grid-x">
 
 <form 
-    action="" 
-    method="get">
+    action="<?php echo App::config("url") ?>konfiguracija/index" 
+    method="get"> 
 
     <input type="text" name="uvjet" id="uvjet" 
     placeholder="unesite uvjet pretraživanja"
@@ -16,14 +17,23 @@ Dodaj novog polaznika</a>
 
 </form>
 
-<div class="grid-x">
+<table id="tablicaKonfiguracije">
+  <thead>
+    <tr>
+     <th>Naziv</th>
+     <th>Opis</th>
+     <th>Cijena</th>
+     <th>Promjeni</th>
+     <th>Akcija</th>
+    </tr>
+  </thead>
+  <tbody>
     <?php foreach($konfiguracije as $konfiguracija): ?>
-        <div class="large-3 medium-6 small-12 column">
-            <ul class="pricing-table">
-                <li class="title"><?php echo $konfiguracija->naziv?></li>
-                <li class="price"><?php echo $konfiguracija->opis?></li>
-                <li class="email"><?php echo $konfiguracija->cijena?></li>
-                <li>
+    <tr>
+    <td><?php echo $konfiguracija->naziv?></td>
+        <td><?=$konfiguracija->opis?></td>
+        <td><?php echo $konfiguracija->cijena?></td>
+        <td>
                     <?php echo $konfiguracija->naziv?><hr />
                     <a title="Promjeni <?php echo $konfiguracija->naziv?>" 
                         href="<?php 
@@ -31,7 +41,7 @@ Dodaj novog polaznika</a>
                         ?>konfiguracija/pripremaPromjeni/<?php echo $konfiguracija->sifra ?>">
                         <i class="fas fa-edit fa-2x" style="color: orange"></i>
                     </a>
-                    <?php if($konfiguracija->ukupno==0): ?>
+                    
                         <a title="Obriši <?php echo $konfiguracija->naziv?>" 
                             onclick="return confirm('Sigurno obrisati <?php echo $konfiguracija->naziv?>');"
                             href="<?php 
@@ -39,18 +49,15 @@ Dodaj novog polaznika</a>
                             ?>konfiguracija/brisanje/<?php echo $konfiguracija->sifra ?>">
                             <i class="fas fa-trash fa-2x" style="color: red"></i>
                         </a>
-                    <?php else:?>
-                        <i title="Ne može se obrisati" 
-                        class="fas fa-trash fa-2x" style="color: gray"></i>
-                    <?php endif;?>
+                      
+                       
+                        </td>
+              </tr>
 
-                </li>
-            </ul>
-        </div>
     <?php endforeach;?>
 
 </div>
-</div>
+
 
 
 

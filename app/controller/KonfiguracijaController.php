@@ -1,6 +1,6 @@
 <?php
 
-class KonfiguracijaController extends Controller
+class KonfiguracijaController extends UlogaOperater
 {
 
     private $viewGreska="";
@@ -17,9 +17,7 @@ class KonfiguracijaController extends Controller
 
     public function pripremaNovi()
     {
-        $this->view->render("privatno/konfiguracije/novi",
-        ["smjerovi"=>Smjer::getSmjerovi(),
-        "predavaci"=>Predavac::getPredavaci()]);
+        $this->view->render("privatno/konfiguracije/novi");
     }
 
 
@@ -41,14 +39,8 @@ class KonfiguracijaController extends Controller
 
     public function pripremaPromjeni($id)
     {
-        $konfiguracija = Konfiguracija::read($id);  
-        $konfiguracija["datumpocetka"] = date("c",strtotime($konfiguracija["datumpocetka"]));
-        App::setParams($grupa);
-
-       $this->view->render("privatno/konfiguracije/promjeni", 
-       ['id'=>$id,
-       "smjerovi"=>Smjer::getSmjerovi(),
-       "predavaci"=>Predavac::getPredavaci()]);
+        App::setParams(Konfiguracija::read($id));
+        $this->view->render("privatno/konfiguracije/promjeni", ['id'=>$id]);
     }
 
 
@@ -69,13 +61,9 @@ class KonfiguracijaController extends Controller
     public function brisanje($id)
     {  
 
-        if(!Konfiguracija::isDeletable($id)){
-            $this->index();
-            return;
-        }
 
         Konfiguracija::brisi($id);
-       $this->index();
+        $this->index();
     }
 
 
@@ -93,6 +81,8 @@ class KonfiguracijaController extends Controller
              'id'=>$this->id
             ]);
     }
+
+    
 
 
 }

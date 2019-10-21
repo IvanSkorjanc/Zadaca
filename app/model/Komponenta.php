@@ -10,7 +10,7 @@ class Komponenta
         $izraz = $veza->prepare("
         
         select * from komponenta
-        
+
         ");
         $izraz->execute();
         return $izraz->fetchAll();
@@ -21,7 +21,7 @@ class Komponenta
         $veza = DB::getInstance();
         $izraz = $veza->prepare("
         
-        select * from komponenta where sifra=:komponenta
+        select * from komponenta 
         
         ");
         $izraz->execute(['komponenta'=>$id]);
@@ -40,6 +40,7 @@ class Komponenta
         
         ");
         $izraz->execute($_POST);
+        return $veza->lastInsertId();
     }
 
     public static function promjeni($id)
@@ -51,7 +52,7 @@ class Komponenta
         naziv=:naziv,
         opis=:opis,
         proizvodac=:proizvodac,
-        cijena=:cijena,
+        cijena=:cijena
         where sifra=:sifra
         
         ");
@@ -73,19 +74,7 @@ class Komponenta
 
 
 
-    public static function isDeletable($id)
-    {
-        $veza = DB::getInstance();
-        $izraz = $veza->prepare("
-        
-        select count(konfiguracija) from dio where komponenta=:komponenta
-        
-        ");
-        $izraz->execute(['komponenta'=>$id]);
-        $ukupno = $izraz->fetchColumn();
-        return $ukupno==0;
 
-    }
 
     
 }

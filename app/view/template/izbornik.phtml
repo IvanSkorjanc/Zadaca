@@ -11,14 +11,14 @@
             <?php echo App::config("nazivApp"); ?>
         </a>
       </li>
-
-      <?php if(isset($_SESSION["autoriziran"])): ?>
-        <li<?php echo Utility::active('/index/nadzornaPloca'); ?>>
+      
+        <li>
+        <?php if(isset($_SESSION["autoriziran"])): ?>
+        <?php if($_SESSION["autoriziran"]->uloga==="oper"): ?>
+          
+          <li<?php echo Utility::active('/index/nadzornaPloca'); ?>>
           <a href="<?php echo App::config("url") ?>index/nadzornaPloca"><i class="fas fa-sliders-h"></i></a>
         </li>
-        <li>
-        <?php if($_SESSION["autoriziran"]->uloga==="oper"): ?>
-          <ul class="menu vertical">
             <li<?php echo Utility::active('/komponenta/index'); ?>>
               <a href="<?php echo App::config("url") ?>komponenta/index">Komponente</a>
             </li>
@@ -28,10 +28,8 @@
             <li<?php echo Utility::active('/proizvodac/index'); ?>>
               <a href="<?php echo App::config("url") ?>proizvodac/index">Proizvođači</a>
             </li>
-            <li<?php echo Utility::active('/index/era'); ?>>
-             <a href="<?php echo App::config("url") ?>index/era">Era dijagram</a>
-           </li>
-          </ul>
+
+          
         </li>
         <?php endif;?>
       <?php if($_SESSION["autoriziran"]->uloga==="admin"): ?>
@@ -50,9 +48,7 @@
       <li<?php echo Utility::active('/index/kontakt'); ?>>
         <a href="<?php echo App::config("url") ?>index/kontakt">Kontakt</a>
       </li> 
-      <li<?php echo Utility::active('/index/era'); ?>>
-          <a href="<?php echo App::config("url") ?>index/era">ERA</a>
-        </li>
+      <li><a href="https://github.com/IvanSkorjanc/Zavrsni-rad" target="_blank">Git</a></li>
     </ul>
   </div>
   <div class="top-bar-right">

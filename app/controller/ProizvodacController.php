@@ -1,6 +1,6 @@
 <?php
 
-class ProizvodacController extends Controller
+class ProizvodacController extends UlogaOperater
 {
 
     private $viewGreska="";
@@ -31,8 +31,8 @@ class ProizvodacController extends Controller
           return;
       }
 
-      Proizvodac::novi();
-       $this->index();
+        Proizvodac::novi();
+        $this->index();
     }
 
 
@@ -61,11 +61,7 @@ class ProizvodacController extends Controller
     public function brisanje($id)
     {  
 
-        if(!Proizvodac::isDeletable($id)){
-            $this->index();
-            return;
-        }
-
+        
         Proizvodac::brisi($id);
        $this->index();
     }
@@ -73,12 +69,9 @@ class ProizvodacController extends Controller
 
     private function kontrole()
     {
-        //nema (još) kontrola
     return true;
     }
 
-
-    //nju za sada nitko ne poziva 
     private function greska($polje,$poruka)
     {
         $this->view->render($this->viewGreska,

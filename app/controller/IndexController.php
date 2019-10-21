@@ -57,6 +57,7 @@ class IndexController
         $korisnik = new stdClass();
         $korisnik->email=$red->email;
         $korisnik->imePrezime=$red->ime . " " . $red->prezime;
+        $korisnik->uloga=$red->uloga;
         $_SESSION["autoriziran"]=$korisnik;
         $this->view->render("privatno/nadzornaPloca");
 
